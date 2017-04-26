@@ -28,8 +28,9 @@ describe RobotWalks do
     end
 
     it 'check settings' do
-      res = "\\begin{tikzpicture}\n" +
-        dummy_class.robot_walks +
+      res = "\\begin{tikzpicture}[shorten >=-3pt,shorten <=-3pt]\n" +
+        # dummy_class.robot_walks +
+        dummy_class.robot_walks([[:a,:r],[:a,:l],[:b,:l],[:b,:r],[:b,:l]]) +
         # dummy_class.draw_left(5,72,5,72) +
         # dummy_class.draw_left(5,72,5,144) +
         # dummy_class.draw_left(0,0,5,72) +
