@@ -36,18 +36,29 @@ module RobotWalks
     draw_arc(starting_a,ending_a,radius,center)
   end
 
-  # def draw_left(r_1,a_1)
-  #   draw_polar(r,a) + draw_left_arc_center(r,a) + draw_left_arc(r,a)
-  # end
-
-  def draw_left(r_1,a_1,r_2,a_2)
-    draw_polar_a_b(r_1,a_1,r_2,a_2) + draw_left_arc_center(r_1,a_1,r_2,a_2) + draw_left_arc(r_1,a_1,r_2,a_2)
+  def draw_left(r_1,a_1,r_2,a_2) #r_1,a_1 are the starting position vector, r_2,a_2 corresponds to the vectors a b c d e
+    draw_polar_a_b(r_1,a_1,r_2,a_2) + draw_left_arc_center(r_1,a_1,r_2,a_2) + draw_right_arc_center(r_1,a_1,r_2,a_2)  + draw_left_arc(r_1,a_1,r_2,a_2) + + draw_right_arc(r_1,a_1,r_2,a_2)
   end
 
   def polar_to_xy(r,a)
     a = a.to_f / 180 * Math::PI
     x_coord = r*Math::cos(a)
     y_coord = r*Math::sin(a)
+  end
+
+  def polar_coords_a_b(r_1,a_1,r_2,a_2)
+    a_coords = to_xy(r_1,a_1)
+    ab_coords = to_xy(r_2,a_2)
+    b_coords = [a_coords[0]+ab_coords[0],a_coords[1]+ab_coords[1]]
+    [a_coords,b_coords]
+  end
+
+  def right_arc_center(r_1,a_1,r_2,a_2)
+    left_center = left_arc_center(r_1,a_1,r_2,a_2)
+    a_b_coords = polar_coords_a_b(r_1,a_1,r_2,a_2)
+    ab_mid_coords = [(a_b_coords[0][0]+a_b_coords[1][0])/2,(a_b_coords[0][1]+a_b_coords[1][1])/2]
+    l_center_to_mid = [ab_mid_coords[0]-left_center[0],ab_mid_coords[1]-left_center[1]]
+    [ab_mid_coords[0]+l_center_to_mid[0],ab_mid_coords[1]+l_center_to_mid[1]]
   end
 
   def draw_polar_a_b(r_1,a_1,r_2,a_2)
@@ -68,11 +79,24 @@ module RobotWalks
     "\\node[circle,draw=black, fill=black,inner sep=0pt, minimum size=3pt] at (#{coords[0]},#{coords[1]}) {};\n"
   end
 
+  def draw_right_arc_center(r_1,a_1,r_2,a_2)
+    coords = right_arc_center(r_1,a_1,r_2,a_2)
+    "\\node[circle,draw=black, fill=black,inner sep=0pt, minimum size=3pt] at (#{coords[0]},#{coords[1]}) {};\n"
+  end
+
   def draw_left_arc(r_1,a_1,r_2,a_2)
     starting_a = 180 + (a_2 - 54) - 72
     ending_a = starting_a + 72
     radius = arc_radius(r_2,a_2)
     center = left_arc_center(r_1,a_1,r_2,a_2)
+    draw_arc(starting_a,ending_a,radius,center)
+  end
+
+  def draw_right_arc(r_1,a_1,r_2,a_2)
+    starting_a = 180 + (a_2 - 54) - 72 + 180
+    ending_a = starting_a + 72
+    radius = arc_radius(r_2,a_2)
+    center = right_arc_center(r_1,a_1,r_2,a_2)
     draw_arc(starting_a,ending_a,radius,center)
   end
 
