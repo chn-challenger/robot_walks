@@ -121,9 +121,28 @@ module RobotWalks
     draw_arc(starting_a,ending_a,radius,center)
   end
 
+  # def vectors
+  #   {a:[2,90],b:[2,18],c:[2,306],d:[2,234],e:[2,162]}
+  # end
+  #
+  # def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r],[:d,:r],[:e,:r]],start=[0,0])
+  #   res = ''
+  #   a = start
+  #   path.each do |part|
+  #     ab = vectors[part[0]]
+  #     if part[1] == :l
+  #       res += draw_left_arc(a[0],a[1],ab[0],ab[1])
+  #     else
+  #       res += draw_right_arc(a[0],a[1],ab[0],ab[1])
+  #     end
+  #     xy_a = polar_b(a[0],a[1],ab[0],ab[1])
+  #     a = to_polar(xy_a)
+  #   end
+  #   res
+  # end
+
   def vectors
-    # {a:[5,90],b:[5,162],c:[5,234],d:[5,306],e:[5,18]}
-    {a:[2,90],e:[2,162],d:[2,234],c:[2,306],b:[2,18]}
+    {0=>[2,90],1=>[2,18],2=>[2,306],3=>[2,234],4=>[2,162]}
   end
 
   def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r],[:d,:r],[:e,:r]],start=[0,0])
