@@ -96,7 +96,12 @@ module RobotWalks
 
   def to_polar(xy_coords)
     r = Math::sqrt(xy_coords[0]**2 + xy_coords[1]**2)
-    a = ((Math::atan(xy_coords[1]/xy_coords[0])) / Math::PI * 180) % 360
+    a = ((Math::atan(xy_coords[1]/xy_coords[0].to_f)) / Math::PI * 180)
+
+    a += 180 if xy_coords[0] < 0 && xy_coords[1] > 0
+    a += 180 if xy_coords[0] < 0 && xy_coords[1] < 0
+    a += 360 if xy_coords[0] > 0 && xy_coords[1] < 0
+
     [r,a]
   end
 
@@ -120,24 +125,34 @@ module RobotWalks
     {a:[5,90],b:[5,162],c:[5,234],d:[5,306],e:[5,18]}
   end
 
-  # def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r],[:d,:r],[:e,:r]],start=[0,0])
-  def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r]],start=[0,0])
+  def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r],[:d,:r],[:e,:r]],start=[0,0])
+  # def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r]],start=[0,0])
     res = ''
     a = start
+    puts 'here is polar a'
+    p a
     path.each do |part|
       ab = vectors[part[0]]
+      # puts 'here is polar a'
+      # p a
+      puts 'here is polar ab or vector'
       p ab
-      p a
+      # p a
 
       if part[1] == :l
         res += draw_left_arc(a[0],a[1],ab[0],ab[1])
       else
         res += draw_right_arc(a[0],a[1],ab[0],ab[1])
       end
+
       xy_a = polar_b(a[0],a[1],ab[0],ab[1])
-      puts draw_xy(xy_a)
+      puts 'here is xy end or new a'
+      p xy_a
+      # puts draw_xy(xy_a)
       puts ''
       a = to_polar(xy_a)
+      puts 'here is polar a'
+      p a
       #
     end
     res
