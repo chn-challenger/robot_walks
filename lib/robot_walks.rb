@@ -25,7 +25,7 @@ module RobotWalks
   end
 
   def draw_arc(starting_a,ending_a,radius,center)
-    "\\draw [*-*,red,thick,smooth,domain=#{starting_a}:#{ending_a}] plot ({#{radius}*cos(\\x)+#{center[0]}}, {#{radius}*sin(\\x)+#{center[1]}});\n"
+    "\\draw [->,red,thick,smooth,domain=#{starting_a}:#{ending_a}] plot ({#{radius}*cos(\\x)+#{center[0]}}, {#{radius}*sin(\\x)+#{center[1]}});\n"
   end
 
   def draw_left_arc(r,a)
@@ -51,6 +51,12 @@ module RobotWalks
     ab_coords = to_xy(r_2,a_2)
     b_coords = [a_coords[0]+ab_coords[0],a_coords[1]+ab_coords[1]]
     [a_coords,b_coords]
+  end
+
+  def polar_b(r_1,a_1,r_2,a_2)
+    a_coords = to_xy(r_1,a_1)
+    ab_coords = to_xy(r_2,a_2)
+    [a_coords[0]+ab_coords[0],a_coords[1]+ab_coords[1]]
   end
 
   def right_arc_center(r_1,a_1,r_2,a_2)
@@ -84,8 +90,18 @@ module RobotWalks
     "\\node[circle,draw=black, fill=black,inner sep=0pt, minimum size=3pt] at (#{coords[0]},#{coords[1]}) {};\n"
   end
 
+  def draw_xy(coords)
+    "\\node[circle,draw=black, fill=black,inner sep=0pt, minimum size=3pt] at (#{coords[0]},#{coords[1]}) {};\n"
+  end
+
+  def to_polar(xy_coords)
+    r = Math::sqrt(xy_coords[0]**2 + xy_coords[1]**2)
+    a = ((Math::atan(xy_coords[1]/xy_coords[0])) / Math::PI * 180) % 360
+    [r,a]
+  end
+
   def draw_left_arc(r_1,a_1,r_2,a_2)
-    starting_a = 180 + (a_2 - 54) - 72
+    starting_a = (180 + (a_2 - 54) - 72).round % 360
     ending_a = starting_a + 72
     radius = arc_radius(r_2,a_2)
     center = left_arc_center(r_1,a_1,r_2,a_2)
@@ -93,11 +109,38 @@ module RobotWalks
   end
 
   def draw_right_arc(r_1,a_1,r_2,a_2)
-    starting_a = 180 + (a_2 - 54) - 72 + 180
+    starting_a = (180 + (a_2 - 54) - 72 + 180).round % 360
     ending_a = starting_a + 72
     radius = arc_radius(r_2,a_2)
     center = right_arc_center(r_1,a_1,r_2,a_2)
     draw_arc(starting_a,ending_a,radius,center)
+  end
+
+  def vectors
+    {a:[5,90],b:[5,162],c:[5,234],d:[5,306],e:[5,18]}
+  end
+
+  # def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r],[:d,:r],[:e,:r]],start=[0,0])
+  def robot_walks(path=[[:a,:r],[:b,:r],[:c,:r]],start=[0,0])
+    res = ''
+    a = start
+    path.each do |part|
+      ab = vectors[part[0]]
+      p ab
+      p a
+
+      if part[1] == :l
+        res += draw_left_arc(a[0],a[1],ab[0],ab[1])
+      else
+        res += draw_right_arc(a[0],a[1],ab[0],ab[1])
+      end
+      xy_a = polar_b(a[0],a[1],ab[0],ab[1])
+      puts draw_xy(xy_a)
+      puts ''
+      a = to_polar(xy_a)
+      #
+    end
+    res
   end
 
 end
