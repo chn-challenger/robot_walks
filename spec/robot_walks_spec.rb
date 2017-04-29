@@ -32,11 +32,15 @@ describe RobotWalks do
         [0,:r],[0,:l],[0,:r],[4,:r],[4,:l],[0,:l],[1,:l],[1,:r],[1,:l],[2,:l],
         [2,:r],[2,:l],[3,:l],[4,:l],[4,:r],[3,:r],[3,:l],[3,:r],[2,:r],[1,:r]
         ]
+      walk_2 = [
+        [0,:r],[4,:r],[3,:r],[2,:r],[2,:l],[3,:l],[4,:l],[4,:r],[4,:l],[0,:l],
+        [1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r],[1,:l],[1,:r],[0,:r],[0,:l]
+        ]
       res = "\\begin{tikzpicture}[shorten >=-3pt,shorten <=-3pt]\n" +
         # dummy_class.robot_walks +
         # dummy_class.robot_walks([[0,:r],[0,:l],[1,:l],[1,:r],[1,:l]]) +
         # dummy_class.robot_walks([[0,:r],[4,:r],[4,:l],[0,:l],[1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r]]) +
-        dummy_class.robot_walks(walk_1) +
+        dummy_class.robot_walks(walk_2) +
         # dummy_class.draw_left(5,72,5,72) +
         # dummy_class.draw_left(5,72,5,144) +
         # dummy_class.draw_left(0,0,5,72) +
