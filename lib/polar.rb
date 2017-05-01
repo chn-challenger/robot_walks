@@ -11,7 +11,10 @@ class PolarCoordinate
   end
 
   def to_cartesian
-
+    real_a = angle.to_f / 180 * Math::PI
+    x_coord = r*Math::cos(real_a)
+    y_coord = r*Math::sin(real_a)
+    CartesianCoordinate.new(x_coord,y_coord)
   end
 
 end
