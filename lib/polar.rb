@@ -17,4 +17,13 @@ class PolarCoordinate
     CartesianCoordinate.new(x_coord,y_coord)
   end
 
+  def arc_center(r,a)
+    result_r = (Math::sin(54.to_f / 180 * Math::PI)) / (Math::sin(72.to_f / 180 * Math::PI)) * r
+    result_a = (a-54)%360
+    result_a = result_a.to_f / 180 * Math::PI
+    x_coord = result_r*Math::cos(result_a)
+    y_coord = result_r*Math::sin(result_a)
+    [x_coord,y_coord]
+  end  
+
 end
