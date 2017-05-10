@@ -37,16 +37,7 @@ describe RobotWalks do
         [1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r],[1,:l],[1,:r],[0,:r],[0,:l]
         ]
       res = "\\begin{tikzpicture}[shorten >=-3pt,shorten <=-3pt]\n" +
-        # dummy_class.robot_walks +
-        # dummy_class.robot_walks([[0,:r],[0,:l],[1,:l],[1,:r],[1,:l]]) +
-        # dummy_class.robot_walks([[0,:r],[4,:r],[4,:l],[0,:l],[1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r]]) +
         dummy_class.robot_walks(walk_2) +
-        # dummy_class.draw_left(5,72,5,72) +
-        # dummy_class.draw_left(5,72,5,144) +
-        # dummy_class.draw_left(0,0,5,72) +
-        # dummy_class.draw_polar_a_b(5,72,5,72) +
-        # dummy_class.draw_left_arc_center(5,72,5,72) +
-        # dummy_class.draw_left_arc(5,72,5,72) +
         "\\end{tikzpicture}\n"
 
       Clipboard.copy res
