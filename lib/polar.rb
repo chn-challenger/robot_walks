@@ -7,7 +7,7 @@ class PolarCoordinate
   end
 
   def plus(vector_b)
-
+    #adding two together
   end
 
   def to_cartesian
@@ -24,6 +24,6 @@ class PolarCoordinate
     x_coord = result_r*Math::cos(result_a)
     y_coord = result_r*Math::sin(result_a)
     [x_coord,y_coord]
-  end  
+  end
 
 end
