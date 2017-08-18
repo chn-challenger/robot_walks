@@ -25,7 +25,8 @@ module RobotWalks
   end
 
   def draw_arc(starting_a,ending_a,radius,center)
-    "\\draw [*-*,red,thick,smooth,domain=#{starting_a}:#{ending_a}] plot ({#{radius}*cos(\\x)+#{center[0]}}, {#{radius}*sin(\\x)+#{center[1]}});\n"
+    "\\draw [*-*,red,thick,smooth,domain=#{starting_a}:#{ending_a}] plot "\
+      "({#{radius}*cos(\\x)+#{center[0]}}, {#{radius}*sin(\\x)+#{center[1]}});\n"
   end
 
   def draw_left_arc(r,a)
@@ -37,7 +38,9 @@ module RobotWalks
   end
 
   def draw_left(r_1,a_1,r_2,a_2) #r_1,a_1 are the starting position vector, r_2,a_2 corresponds to the vectors a b c d e
-    draw_polar_a_b(r_1,a_1,r_2,a_2) + draw_left_arc_center(r_1,a_1,r_2,a_2) + draw_right_arc_center(r_1,a_1,r_2,a_2)  + draw_left_arc(r_1,a_1,r_2,a_2) + + draw_right_arc(r_1,a_1,r_2,a_2)
+    draw_polar_a_b(r_1,a_1,r_2,a_2) + draw_left_arc_center(r_1,a_1,r_2,a_2) +
+      draw_right_arc_center(r_1,a_1,r_2,a_2)  + draw_left_arc(r_1,a_1,r_2,a_2) +
+      draw_right_arc(r_1,a_1,r_2,a_2)
   end
 
   def polar_to_xy(r,a)

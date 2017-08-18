@@ -36,6 +36,10 @@ describe RobotWalks do
         [0,:r],[4,:r],[3,:r],[2,:r],[2,:l],[3,:l],[4,:l],[4,:r],[4,:l],[0,:l],
         [1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r],[1,:l],[1,:r],[0,:r],[0,:l]
         ]
+      walk_3 = [
+        [0,:r],[4,:r],[3,:r],[2,:r],[2,:l],[3,:l],[4,:l],[4,:r],[4,:l],[0,:l],
+        [1,:l],[2,:l],[3,:l],[3,:r],[2,:r],[1,:r],[1,:l],[1,:r],[0,:r],[0,:l]
+        ]
       res = "\\begin{tikzpicture}[shorten >=-3pt,shorten <=-3pt]\n" +
         dummy_class.robot_walks(walk_2) +
         "\\end{tikzpicture}\n"
