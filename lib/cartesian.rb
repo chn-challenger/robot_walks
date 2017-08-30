@@ -17,12 +17,6 @@ class CartesianCoordinate
     PolarCoordinate.new(r,a)
   end
 
-  def to_polar_2
-    r = length
-    a = ((Math::atan(y_coord/x_coord.to_f)) / Math::PI * 180)
-
-    PolarCoordinate.new(r,a)
-  end
 
   def length
     Math::sqrt(x_coord**2 + y_coord**2)
